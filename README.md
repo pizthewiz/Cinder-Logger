@@ -1,5 +1,5 @@
 # Cinder-Logger
-`Cinder-Logger` is a [CinderBlock](http://libcinder.org/) to more carefully control logging via Boost.Log.
+`Cinder-Logger` is a [CinderBlock](http://libcinder.org/) to more carefully control logging via [Boost.Log](http://www.boost.org/doc/libs/1_55_0/libs/log/doc/html/index.html).
 
 ### EXAMPLE
 ```C++
