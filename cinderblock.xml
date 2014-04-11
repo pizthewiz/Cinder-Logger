@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+    name="Cinder-Logger"
+    id="com.chordedconstructions.fleshworld.cinder-logger"
+    git="https://github.com/pizthewiz/Cinder-Logger.git"
+    author="Jean-Pierre Mouilleseaux"
+    summary="Controlled logging via Boost.Log"
+    url="https://github.com/pizthewiz/Cinder-Logger"
+    library="http://www.boost.org"
+    >
+    <supports os="macosx" />
+    <headerPattern>src/*.h</headerPattern>
+    <sourcePattern>src/*.cpp</sourcePattern>
+    <platform os="macosx">
+        <staticLibrary>lib/macosx/libboost_log.a</staticLibrary>
+        <staticLibrary>lib/macosx/libboost_thread.a</staticLibrary>
+    </platform>
+</block>
+</cinder>
