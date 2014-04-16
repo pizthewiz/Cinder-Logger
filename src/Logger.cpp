@@ -61,10 +61,6 @@ void Logger::setLogFilePath(const boost::filesystem::path path) {
     logging::add_file_log(mLogFilePath);
 }
 
-boost::filesystem::path Logger::getLogFilePath() const {
-    return mLogFilePath;
-}
-
 #pragma mark -
 
 void Logger::logMessage(SeverityLevel level, const std::string& message) {
