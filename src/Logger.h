@@ -32,13 +32,13 @@ public:
     void setLogFilePath(const boost::filesystem::path path);
     boost::filesystem::path getLogFilePath() const;
 
-    void LogMessage(const SeverityLevel level, const std::string& message);
-    void LogTrace(const std::string& message);
-    void LogDebug(const std::string& message);
-    void LogInfo(const std::string& message);
-    void LogWarning(const std::string& message);
-    void LogError(const std::string& message);
-    void LogFatal(const std::string& message);
+    void logMessage(const SeverityLevel level, const std::string& message);
+    void logTrace(const std::string& message);
+    void logDebug(const std::string& message);
+    void logInfo(const std::string& message);
+    void logWarning(const std::string& message);
+    void logError(const std::string& message);
+    void logFatal(const std::string& message);
 
 private:
     Logger();

@@ -23,10 +23,15 @@ using namespace ci;
 
 namespace Cinder { namespace Logger {
 
+#define CINDER_LOG(logger, level) \
+    BOOST_LOG_STREAM_WITH_PARAMS(logger, (boost::log::keywords::severity = (boost::log::trivial::severity_level)level))
+
+#define CINDER_LOG_TRIVIAL(level) \
+    CINDER_LOG(boost::log::trivial::logger::get(), level)
+
 namespace logging = boost::log;
 namespace src = boost::log::sources;
 namespace sinks = boost::log::sinks;
-namespace keywords = boost::log::keywords;
 
 LoggerRef Logger::create() {
     return LoggerRef(new Logger())->shared_from_this();
@@ -62,53 +67,32 @@ boost::filesystem::path Logger::getLogFilePath() const {
 
 #pragma mark -
 
-void Logger::LogMessage(SeverityLevel level, const std::string& message) {
-    switch (level) {
-        case SeverityLevelTrace:
-            LogTrace(message);
-            break;
-        case SeverityLevelDebug:
-            LogDebug(message);
-            break;
-        case SeverityLevelInfo:
-            LogInfo(message);
-            break;
-        case SeverityLevelWarning:
-            LogWarning(message);
-            break;
-        case SeverityLevelError:
-            LogError(message);
-            break;
-        case SeverityLevelFatal:
-            LogFatal(message);
-            break;
-        default:
-            break;
-    }
+void Logger::logMessage(SeverityLevel level, const std::string& message) {
+    CINDER_LOG_TRIVIAL(level) << message;
 }
 
-void Logger::LogTrace(const std::string& message) {
-    BOOST_LOG_TRIVIAL(trace) << message;
+void Logger::logTrace(const std::string& message) {
+    CINDER_LOG_TRIVIAL(SeverityLevelTrace) << message;
 }
 
-void Logger::LogDebug(const std::string& message) {
-    BOOST_LOG_TRIVIAL(debug) << message;
+void Logger::logDebug(const std::string& message) {
+    CINDER_LOG_TRIVIAL(SeverityLevelDebug) << message;
 }
 
-void Logger::LogInfo(const std::string& message) {
-    BOOST_LOG_TRIVIAL(info) << message;
+void Logger::logInfo(const std::string& message) {
+    CINDER_LOG_TRIVIAL(SeverityLevelInfo) << message;
 }
 
-void Logger::LogWarning(const std::string& message) {
-    BOOST_LOG_TRIVIAL(warning) << message;
+void Logger::logWarning(const std::string& message) {
+    CINDER_LOG_TRIVIAL(SeverityLevelWarning) << message;
 }
 
-void Logger::LogError(const std::string& message) {
-    BOOST_LOG_TRIVIAL(error) << message;
+void Logger::logError(const std::string& message) {
+    CINDER_LOG_TRIVIAL(SeverityLevelError) << message;
 }
 
-void Logger::LogFatal(const std::string& message) {
-    BOOST_LOG_TRIVIAL(fatal) << message;
+void Logger::logFatal(const std::string& message) {
+    CINDER_LOG_TRIVIAL(SeverityLevelFatal) << message;
 }
 
 }}
