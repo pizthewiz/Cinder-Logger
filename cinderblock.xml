@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cinder>
 <block
-    name="Cinder-Logger"
+    name="Logger"
     id="com.chordedconstructions.fleshworld.cinder-logger"
     git="https://github.com/pizthewiz/Cinder-Logger.git"
     author="Jean-Pierre Mouilleseaux"
