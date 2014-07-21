@@ -10,14 +10,7 @@
 
 namespace Cinder { namespace Logger {
 
-enum SeverityLevel {
-    SeverityLevelTrace,
-    SeverityLevelDebug,
-    SeverityLevelInfo,
-    SeverityLevelWarning,
-    SeverityLevelError,
-    SeverityLevelFatal,
-};
+enum class SeverityLevel {Trace, Debug, Info, Warning, Error, Fatal};
 
 typedef std::shared_ptr<class Logger> LoggerRef;
 

@@ -25,7 +25,7 @@ using namespace ci;
 namespace Cinder { namespace Logger {
 
 #define CINDER_LOG(logger, level) \
-    BOOST_LOG_STREAM_WITH_PARAMS(logger, (boost::log::keywords::severity = (boost::log::trivial::severity_level)level))
+    BOOST_LOG_STREAM_WITH_PARAMS(logger, (boost::log::keywords::severity = static_cast<boost::log::trivial::severity_level>(level)))
 
 #define CINDER_LOG_TRIVIAL(level) \
     CINDER_LOG(boost::log::trivial::logger::get(), level)
@@ -39,7 +39,7 @@ LoggerRef Logger::create() {
 }
 
 Logger::Logger() {
-    setSeverityLevel(SeverityLevelInfo);
+    setSeverityLevel(SeverityLevel::Info);
 }
 
 Logger::~Logger() {
@@ -53,7 +53,7 @@ void Logger::setSeverityLevel(SeverityLevel level) {
     }
 
     mSeverityLevel = level;
-    logging::core::get()->set_filter(logging::trivial::severity >= mSeverityLevel);
+    logging::core::get()->set_filter(logging::trivial::severity >= static_cast<boost::log::trivial::severity_level>(mSeverityLevel));
 }
 
 void Logger::setLogFilePath(const boost::filesystem::path& path) {
@@ -69,27 +69,27 @@ void Logger::logMessage(SeverityLevel level, const std::string& message) {
 }
 
 void Logger::logTrace(const std::string& message) {
-    CINDER_LOG_TRIVIAL(SeverityLevelTrace) << message;
+    CINDER_LOG_TRIVIAL(SeverityLevel::Trace) << message;
 }
 
 void Logger::logDebug(const std::string& message) {
-    CINDER_LOG_TRIVIAL(SeverityLevelDebug) << message;
+    CINDER_LOG_TRIVIAL(SeverityLevel::Debug) << message;
 }
 
 void Logger::logInfo(const std::string& message) {
-    CINDER_LOG_TRIVIAL(SeverityLevelInfo) << message;
+    CINDER_LOG_TRIVIAL(SeverityLevel::Info) << message;
 }
 
 void Logger::logWarning(const std::string& message) {
-    CINDER_LOG_TRIVIAL(SeverityLevelWarning) << message;
+    CINDER_LOG_TRIVIAL(SeverityLevel::Warning) << message;
 }
 
 void Logger::logError(const std::string& message) {
-    CINDER_LOG_TRIVIAL(SeverityLevelError) << message;
+    CINDER_LOG_TRIVIAL(SeverityLevel::Error) << message;
 }
 
 void Logger::logFatal(const std::string& message) {
-    CINDER_LOG_TRIVIAL(SeverityLevelFatal) << message;
+    CINDER_LOG_TRIVIAL(SeverityLevel::Fatal) << message;
 }
 
 }}
