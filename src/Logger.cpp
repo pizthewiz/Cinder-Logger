@@ -56,7 +56,7 @@ void Logger::setSeverityLevel(SeverityLevel level) {
     logging::core::get()->set_filter(logging::trivial::severity >= static_cast<boost::log::trivial::severity_level>(mSeverityLevel));
 }
 
-void Logger::setLogFilePath(const boost::filesystem::path& path) {
+void Logger::setLogFilePath(const fs::path& path) {
     mLogFilePath = path;
     // TODO - replace existing
     logging::add_file_log(mLogFilePath);

@@ -22,8 +22,8 @@ public:
     void setSeverityLevel(SeverityLevel level);
     SeverityLevel getSeverityLevel() const { return mSeverityLevel; }
 
-    void setLogFilePath(const boost::filesystem::path& path);
-    boost::filesystem::path getLogFilePath() const { return mLogFilePath; }
+    void setLogFilePath(const ci::fs::path& path);
+    ci::fs::path getLogFilePath() const { return mLogFilePath; }
 
     void logMessage(const SeverityLevel level, const std::string& message);
     void logTrace(const std::string& message);
@@ -37,7 +37,7 @@ private:
     Logger();
 
     SeverityLevel mSeverityLevel;
-    boost::filesystem::path mLogFilePath;
+    ci::fs::path mLogFilePath;
 };
 
 }}
