@@ -14,10 +14,12 @@
     #include <boost/log/trivial.hpp>
     #include <boost/log/expressions.hpp>
     #include <boost/log/sinks/text_file_backend.hpp>
+    #include <boost/log/utility/setup/console.hpp>
     #include <boost/log/utility/setup/file.hpp>
     #include <boost/log/utility/setup/common_attributes.hpp>
     #include <boost/log/sources/severity_logger.hpp>
     #include <boost/log/sources/record_ostream.hpp>
+    #include <boost/log/support/date_time.hpp>
 #pragma clang diagnostic pop
 
 using namespace ci;
@@ -31,8 +33,11 @@ namespace Cinder { namespace Logger {
     CINDER_LOG(boost::log::trivial::logger::get(), level)
 
 namespace logging = boost::log;
-namespace src = boost::log::sources;
 namespace sinks = boost::log::sinks;
+namespace src = boost::log::sources;
+namespace expr = boost::log::expressions;
+namespace attrs = boost::log::attributes;
+namespace keywords = boost::log::keywords;
 
 LoggerRef Logger::create() {
     return LoggerRef(new Logger())->shared_from_this();
@@ -40,6 +45,17 @@ LoggerRef Logger::create() {
 
 Logger::Logger() {
     setSeverityLevel(SeverityLevel::Info);
+    logging::add_common_attributes();
+
+    logging::add_console_log(
+        std::cout,
+        keywords::format = (
+            expr::stream
+                << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                << ": <" << logging::trivial::severity
+                << "> " << expr::smessage
+        )
+    );
 }
 
 Logger::~Logger() {
@@ -48,18 +64,24 @@ Logger::~Logger() {
 #pragma mark -
 
 void Logger::setSeverityLevel(SeverityLevel level) {
-    if (level == mSeverityLevel) {
-        return;
-    }
-
     mSeverityLevel = level;
     logging::core::get()->set_filter(logging::trivial::severity >= static_cast<boost::log::trivial::severity_level>(mSeverityLevel));
 }
 
 void Logger::setLogFilePath(const fs::path& path) {
+    // TODO - replace existing when necessary
     mLogFilePath = path;
-    // TODO - replace existing
-    logging::add_file_log(mLogFilePath);
+
+    logging::add_file_log(
+        keywords::file_name = mLogFilePath,
+        keywords::format = (
+            expr::stream
+                << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                << ": <" << logging::trivial::severity
+                << "> " << expr::smessage
+        ),
+        keywords::auto_flush = true
+    );
 }
 
 #pragma mark -
