@@ -5,6 +5,8 @@
 ```C++
 void LumberjackApp::setup() {
     mLogger = Logger::create();
+    fs::path path = expandPath("~/Desktop/lumberjack.log");
+    mLogger->setLogFilePath(path);
     mLogger->setSeverityLevel(SeverityLevel::Debug);
 }
 
