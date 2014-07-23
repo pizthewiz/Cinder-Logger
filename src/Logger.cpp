@@ -69,8 +69,15 @@ void Logger::setSeverityLevel(SeverityLevel level) {
 }
 
 void Logger::setLogFilePath(const fs::path& path) {
-    // TODO - replace existing when necessary
+    if (!mLogFilePath.empty()) {
+        // TODO - replace?
+    }
+
     mLogFilePath = path;
+
+    if (path.empty()) {
+        return;
+    }
 
     logging::add_file_log(
         keywords::file_name = mLogFilePath,
