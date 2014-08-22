@@ -7,7 +7,7 @@ void LumberjackApp::setup() {
     mLogger = Logger::create();
     fs::path path = expandPath("~/Desktop/lumberjack.log");
     mLogger->setLogFilePath(path);
-    mLogger->setSeverityLevel(SeverityLevel::Debug);
+    mLogger->setSeverityLevel(Logger::SeverityLevel::Debug);
 }
 
 void LumberjackApp::shutdown() {
@@ -15,11 +15,11 @@ void LumberjackApp::shutdown() {
 }
 
 void LumberjackApp::keyDown(KeyEvent event) {
-    mLogger->logMessage(SeverityLevel::Debug, "key code: " + toString(event.getCode()));
+    mLogger->logMessage(Logger::SeverityLevel::Debug, "key code: " + toString(event.getCode()));
 }
 
 void LumberjackApp::mouseDown(MouseEvent event) {
     // ignored as the severity level is lower than the threshold
-    mLogger->logMessage(SeverityLevel::Trace, "LumberjackApp::mouseDown");
+    mLogger->logMessage(Logger::SeverityLevel::Trace, "LumberjackApp::mouseDown");
 }
 ```
